@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Symbol Modal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .hidden { display: none; }
+  </style>
+</head>
+<body class="bg-black text-white flex items-center justify-center min-h-screen">
+
+  <!-- Tombol buka modal -->
+  <button id="openModal" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded">
+    Add Symbol
+  </button>
+
+  <!-- Modal -->
+  <div id="modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center">
+    <div class="bg-black border border-gray-800 rounded-lg max-w-md w-full p-6">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold">Add Symbol to Watchlist</h2>
+        <button id="closeModal" class="text-gray-400 hover:text-white">✕</button>
+      </div>
+
+      <!-- Form -->
+      <form id="symbolForm" class="space-y-4">
+        <div>
+          <label for="symbol" class="block text-sm text-gray-400 mb-2">Symbol</label>
+          <input id="symbol" type="text" placeholder="e.g., BINANCE:BTCUSDT"
+            class="w-full px-3 py-2 bg-black border border-gray-800 rounded placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" required />
+        </div>
+
+        <div>
+          <label for="name" class="block text-sm text-gray-400 mb-2">Name</label>
+          <input id="name" type="text" placeholder="e.g., Bitcoin/USD"
+            class="w-full px-3 py-2 bg-black border border-gray-800 rounded placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" required />
+        </div>
+
+        <div>
+          <label for="exchange" class="block text-sm text-gray-400 mb-2">Exchange (optional)</label>
+          <input id="exchange" type="text" placeholder="e.g., Binance"
+            class="w-full px-3 py-2 bg-black border border-gray-800 rounded placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" />
+        </div>
+
+        <div>
+          <label for="category" class="block text-sm text-gray-400 mb-2">Category</label>
+          <select id="category"
+            class="w-full px-3 py-2 bg-black border border-gray-800 rounded focus:ring-blue-500 focus:border-blue-500">
+            <option value="stock">Stock</option>
+            <option value="crypto">Crypto</option>
+            <option value="forex">Forex</option>
+          </select>
+        </div>
+
+        <!-- Tombol aksi -->
+        <div class="flex space-x-3 pt-4">
+          <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 rounded py-2">
+            Add Symbol
+          </button>
+          <button type="button" id="cancelModal"
+            class="flex-1 border border-gray-800 text-gray-300 hover:text-white hover:bg-black rounded py-2">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const openBtn = document.getElementById('openModal');
+    const closeBtn = document.getElementById('closeModal');
+    const cancelBtn = document.getElementById('cancelModal');
+    const modal = document.getElementById('modal');
+    const form = document.getElementById('symbolForm');
+
+    openBtn.onclick = () => modal.classList.remove('hidden');
+    closeBtn.onclick = () => modal.classList.add('hidden');
+    cancelBtn.onclick = () => modal.classList.add('hidden');
+
+    form.onsubmit = (e) => {
+      e.preventDefault();
+      const data = {
+        symbol: document.getElementById('symbol').value.toUpperCase(),
+        name: document.getElementById('name').value,
+        exchange: document.getElementById('exchange').value,
+        class: document.getElementById('category').value
+      };
+      console.log("Added symbol:", data);
+      alert("Added: " + JSON.stringify(data));
+      form.reset();
+      modal.classList.add('hidden');
+    };
+  </script>
+</body>
+</html>
