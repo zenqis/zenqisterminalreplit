@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenqis Terminal – Access</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: sans-serif; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-black via-gray-900 to-purple-900 flex items-center justify-center p-4">
+  <div class="w-full max-w-sm space-y-6">
+    <!-- Header -->
+    <div class="text-center space-y-3">
+      <div class="flex items-center justify-center mb-4">
+        <div class="bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
+          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+      </div>
+      <h1 class="text-2xl font-bold tracking-tight text-white">Zenqis Terminal</h1>
+      <p class="text-white/60 text-xs font-medium tracking-wider uppercase">LOG IN</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="bg-slate-800/30 backdrop-blur-lg rounded-xl border border-slate-700/30 shadow-2xl p-6">
+      <div class="grid grid-cols-3 mb-4">
+        <button id="tab-login" class="py-2 text-white bg-white/10 rounded">Login</button>
+        <button id="tab-signup" class="py-2 text-white/70">Sign Up</button>
+        <button id="tab-request" class="py-2 text-white/70">Request Access</button>
+      </div>
+
+      <!-- Login -->
+      <div id="content-login" class="space-y-4">
+        <form id="login-form" class="space-y-3">
+          <input type="text" placeholder="Username"
+            class="w-full h-11 px-3 rounded-lg bg-slate-700/30 border border-slate-600/50 text-white placeholder:text-slate-400">
+          <input type="password" placeholder="Password"
+            class="w-full h-11 px-3 rounded-lg bg-slate-700/30 border border-slate-600/50 text-white placeholder:text-slate-400">
+          <button type="submit"
+            class="w-full bg-green-600 hover:bg-green-700 text-white h-11 rounded-lg font-medium">
+            Sign In
+          </button>
+        </form>
+      </div>
+
+      <!-- Signup -->
+      <div id="content-signup" class="hidden space-y-4">
+        <form id="signup-form" class="space-y-3">
+          <input type="text" placeholder="Username"
+            class="w-full h-11 px-3 rounded-lg bg-slate-700/30 border border-slate-600/50 text-white placeholder:text-slate-400">
+          <input type="tel" placeholder="WhatsApp Number"
+            class="w-full h-11 px-3 rounded-lg bg-slate-700/30 border border-slate-600/50 text-white placeholder:text-slate-400">
+          <input type="password" placeholder="Password (min 6 char)"
+            class="w-full h-11 px-3 rounded-lg bg-slate-700/30 border border-slate-600/50 text-white placeholder:text-slate-400">
+          <button type="submit"
+            class="w-full bg-green-600 hover:bg-green-700 text-white h-11 rounded-lg font-medium">
+            Create Account
+          </button>
+        </form>
+      </div>
+
+      <!-- Request -->
+      <div id="content-request" class="hidden space-y-4">
+        <form id="request-form" class="space-y-3">
+          <input type="text" placeholder="Desired Username"
+            class="w-full h-11 px-3 rounded-lg bg-slate-700/30 border border-slate-600/50 text-white placeholder:text-slate-400">
+          <textarea placeholder="Why do you need access?"
+            class="w-full min-h-[80px] px-3 py-2 rounded-lg bg-slate-700/30 border border-slate-600/50 text-white placeholder:text-slate-400"></textarea>
+          <button type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-lg font-medium">
+            Request Access
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <p class="text-center text-xs text-slate-500">© 2025 Zenqis Trading Terminal</p>
+    <div class="text-center mt-4">
+      <a href="https://terminalzenqis.hokkyalexan.com" target="_blank"
+        class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg text-sm font-medium">
+        Go To Website
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Tab logic
+    const tabs = { login: "content-login", signup: "content-signup", request: "content-request" };
+    function showTab(tab) {
+      Object.keys(tabs).forEach(t => {
+        document.getElementById(tabs[t]).classList.add("hidden");
+        document.getElementById("tab-" + t).classList.remove("bg-white/10");
+      });
+      document.getElementById(tabs[tab]).classList.remove("hidden");
+      document.getElementById("tab-" + tab).classList.add("bg-white/10");
+    }
+    document.getElementById("tab-login").onclick = () => showTab("login");
+    document.getElementById("tab-signup").onclick = () => showTab("signup");
+    document.getElementById("tab-request").onclick = () => showTab("request");
+  </script>
+</body>
+</html>
