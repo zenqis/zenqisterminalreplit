@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Currency Converter Sidebar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .hidden { display: none; }
+  </style>
+</head>
+<body class="h-screen flex">
+
+  <!-- Sidebar -->
+  <div id="converterSidebar" class="h-full bg-black border-r border-gray-600 flex flex-col relative" style="width: 400px;">
+    <!-- Header -->
+    <div class="p-4 border-b border-gray-600/20 flex items-center justify-between">
+      <div class="flex items-center space-x-2 text-gray-300">
+        ⬍
+        <h3 class="text-lg font-semibold">Currency Converter</h3>
+      </div>
+      <button id="closeSidebar" class="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg">
+        ✕
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 p-4 overflow-hidden">
+      <iframe
+        title="Currency Converter Sidebar"
+        src="https://wise.com/gb/currency-converter/fx-widget/table?sourceCurrency=IDR&targetCurrencies=EUR%2CUSD%2CJPY%2CIDR%2CAUD%2CCHF%2CCNY%2CINR%2CHKD%2CSGD"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        class="rounded-lg w-full h-full"
+        style="border: none; background: transparent"
+      ></iframe>
+    </div>
+
+    <!-- Resize Handle -->
+    <div id="resizeHandle"
+      class="absolute top-0 right-0 w-1 h-full cursor-col-resize bg-gray-600/20 hover:bg-gray-600/40">
+    </div>
+  </div>
+
+  <script>
+    const sidebar = document.getElementById("converterSidebar");
+    const closeBtn = document.getElementById("closeSidebar");
+    const resizeHandle = document.getElementById("resizeHandle");
+
+    // Tutup sidebar
+    closeBtn.onclick = () => {
+      sidebar.classList.toggle("hidden");
+    };
+
+    // Resize drag
+    resizeHandle.onmousedown = (e) => {
+      const startX = e.clientX;
+      const startWidth = sidebar.offsetWidth;
+
+      function onMouseMove(e) {
+        const newWidth = Math.max(300, Math.min(600, startWidth + (e.clientX - startX)));
+        sidebar.style.width = newWidth + "px";
+      }
+
+      function onMouseUp() {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+      }
+
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+    };
+  </script>
+</body>
+</html>
